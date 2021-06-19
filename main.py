@@ -13,7 +13,7 @@ def about_func():
     about_frame.pack()
     text=tk.Text(about_frame,relief=tk.FLAT)
     text.grid(row=0,column=0)
-    content="QR Code Writer/Reader\nCopyright Abhimanyu Sharma\nCoded In Pure Python (Tkinter And OpenCV)\nAlso Check Out My Other Softwares :\nVisit :\nhttps://angry-dijkstra-87d8ed.netlify.app/\nSource Code :\nhttps://github.com/N1nja0p/QR-Code-Reader-Writer"
+    content="QR Code Reader/Writer By Abhimanyu Sharma\nCopyright Abhimanyu Sharma\nCoded In Pure Python (Tkinter And OpenCV)\nAlso Check Out My Other Softwares :\nVisit :\nhttps://angry-dijkstra-87d8ed.netlify.app/\nSource Code :\nhttps://github.com/N1nja0p/QR-Code-Reader-Writer"
     text.insert(tk.INSERT,content,tk.LEFT)
     text.config(state=tk.DISABLED)
 menu=tk.Menu(win)
@@ -27,6 +27,7 @@ def show():
         mbox.showerror("Error","Please Fill The Data Correctly !")
     else:
         qr=qrcode.make(data.get())
+        mbox.showinfo("Success !",f"Successfully Generated Data !")
         qr.show()
 def save():
     if data.get()=="":
@@ -34,6 +35,7 @@ def save():
     else:
         try:
             name=fd.asksaveasfilename(initialdir=os.getcwd(),filetypes=(("PNG Files","*.png"),("All Files","*.*")))
+            mbox.showinfo("Success !",f"Successfully Generated Data In {os.path.basename(name)} ! :")
             file=os.path.basename(name)
             qr=qrcode.make(data.get())
             qr.save(file)
@@ -65,11 +67,8 @@ def read_qr():
     open_and_save_btn.grid(row=0,column=1)
 def process():
     try:
-        data_canvas=tk.Canvas(read_frame)
-        data_canvas.grid(row=2,column=0)
         qr=fd.askopenfilename(defaultextension=(("Picture Files","*.png,*.jpg,*.jpeg"),("All Files","*.*")))
-        data_label=ttk.Label(read_frame,text=f"Successfully Generated Data In {os.path.basename(qr)} ! :")
-        data_label.grid(row=1,column=0,sticky=tk.W)
+        mbox.showinfo("Success !",f"Successfully Generated Data In {os.path.basename(qr)} ! :")
         reader=cv2.QRCodeDetector()
         try:
             qr2=cv2.imread(qr)
@@ -77,19 +76,23 @@ def process():
         except:
             mbox.showerror("Error",f"QR Code Reader Was Unable Detect Data In {os.path.basename(qr)}. Please Try Again With Different Image !")
         else:
-            data_canvas.create_text(100,10,text=text)
+            text_level=tk.Toplevel()
+            your_text=tk.Text(text_level,relief=tk.FLAT,wrap="word")
+            text=f"Your Generated Data In {os.path.basename(qr)} :\n{text}"
+            your_text.insert(tk.INSERT,text,tk.LEFT)
+            your_text.config(state=tk.DISABLED)
+            your_text.pack(expand=True,fill=tk.BOTH)
     except FileNotFoundError:
         return
 def save_in_text():
     try:
-        qr=fd.askopenfilename(defaultextension=(("Picture Files","*.png,*.jpg,*.jpeg"),("All Files","*.*")))
+        qr=fd.askopenfilename(filetypes=(("Picture Files","*.png"),("All Files","*.*")))
         reader=cv2.QRCodeDetector()
         try:
             qr2=cv2.imread(qr)
             text,_,_=reader.detectAndDecode(qr2)
             save_file=fd.asksaveasfile(mode="w",filetypes=(("Text File","*.txt"),("All Files","*.*")))
-            data_label=ttk.Label(read_frame,text=f"Successfully Generated Data In {os.path.basename(qr)} ! And Saved In {os.path.basename(save_file.name)}")
-            data_label.grid(row=1,column=0,sticky=tk.W)
+            mbox.showinfo("Success !",f"Successfully Generated Data In {os.path.basename(qr)} ! And Saved In {os.path.basename(save_file.name)}")
             save_file.write(text+"\n")
             save_file.close()
         except:
@@ -102,6 +105,6 @@ create_btn=ttk.Button(chose_labelframe,text="Create QR Code",command=create_qr)
 create_btn.grid(row=0,column=0)
 read_btn=ttk.Button(chose_labelframe,text="Read QR Code",command=read_qr)
 read_btn.grid(row=0,column=1)
-win.title("Read And Make QR Code")
+win.title("QR Code Reader/Writer By Abhimanyu Sharma")
 win.resizable(0,0)
 win.mainloop()
