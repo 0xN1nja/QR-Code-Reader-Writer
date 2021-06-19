@@ -26,7 +26,7 @@ def show():
     if data.get()=="":
         mbox.showerror("Error","Please Fill The Data Correctly !")
     else:
-        qr=qrcode.make(data)
+        qr=qrcode.make(data.get())
         qr.show()
 def save():
     if data.get()=="":
@@ -35,7 +35,7 @@ def save():
         try:
             name=fd.asksaveasfilename(initialdir=os.getcwd(),filetypes=(("PNG Files","*.png"),("All Files","*.*")))
             file=os.path.basename(name)
-            qr=qrcode.make(data)
+            qr=qrcode.make(data.get())
             qr.save(file)
         except:
             return
@@ -77,7 +77,7 @@ def process():
         except:
             mbox.showerror("Error",f"QR Code Reader Was Unable Detect Data In {os.path.basename(qr)}. Please Try Again With Different Image !")
         else:
-            data_canvas.create_text(40,10,text=text)
+            data_canvas.create_text(100,10,text=text)
     except FileNotFoundError:
         return
 def save_in_text():
