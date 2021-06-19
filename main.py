@@ -13,7 +13,7 @@ def about_func():
     about_frame.pack()
     text=tk.Text(about_frame,relief=tk.FLAT)
     text.grid(row=0,column=0)
-    content="QR Code Writer/Reader\nCopyright Abhimanyu Sharma\nCoded In Pure Python (Tkinter And OpenCV)\nAlso Check Out My Other Softwares :\nVisit :\nhttps://angry-dijkstra-87d8ed.netlify.app/\nSource Code :\n"
+    content="QR Code Writer/Reader\nCopyright Abhimanyu Sharma\nCoded In Pure Python (Tkinter And OpenCV)\nAlso Check Out My Other Softwares :\nVisit :\nhttps://angry-dijkstra-87d8ed.netlify.app/\nSource Code :\nhttps://github.com/N1nja0p/QR-Code-Reader-Writer"
     text.insert(tk.INSERT,content,tk.LEFT)
     text.config(state=tk.DISABLED)
 menu=tk.Menu(win)
