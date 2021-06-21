@@ -10,7 +10,7 @@ executables = [cx_Freeze.Executable("qrcode_reader_writer.py", base=base, icon="
 cx_Freeze.setup(
     name = "QR Code Reader/Writer By Abhimanyu Sharma",
     options = {"build_exe": {"packages":["tkinter","os","qrcode","cv2"], "include_files":["icon.ico","tcl86t.dll","tk86t.dll"]}},
-    version = "0.02",
+    version = "0.01",
     author="Abhimanyu Sharma",
     description = "Create/Read QR Codes With Ease !",
     executables = executables
