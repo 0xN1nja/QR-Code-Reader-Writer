@@ -6,7 +6,7 @@ import qrcode
 import cv2
 import os
 win=tk.Tk()
-# win.wm_iconbitmap(r"icon.ico")
+win.wm_iconbitmap(r"icon.ico")
 def about_func():
     about_window=tk.Toplevel()
     about_window.title("About")
